@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MAX Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b111e; /* Azul oscuro profundo de la captura */
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .bg-card {
+            background-color: #172031; /* Color exacto de las tarjetas */
+        }
+        /* Ocultar barra de scroll en móviles */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="text-gray-200 min-h-screen p-4 flex flex-col justify-between select-none">
+
+    <div class="w-full max-w-md mx-auto space-y-6">
+        
+        <div class="text-center mt-4">
+            <h2 class="text-[11px] font-bold tracking-[0.2em] text-blue-500 uppercase">Admin Dashboard</h2>
+            <h1 class="text-5xl font-black tracking-wide text-gray-300 mt-1">MAX</h1>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <button onclick="abrirModal()" class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
+                <div class="text-amber-500 text-xl bg-amber-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-1">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <span class="font-semibold text-sm text-gray-300">Venta</span>
+            </button>
+
+            <button onclick="abrirModal()" class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
+                <div class="text-blue-400 text-xl bg-blue-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-1">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <span class="font-semibold text-sm text-gray-300">Clientes</span>
+            </button>
+
+            <button class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
+                <div class="text-rose-400 text-xl bg-rose-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-1">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                </div>
+                <span class="font-semibold text-sm text-gray-300">Deudores</span>
+            </button>
+
+            <button class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
+                <div class="text-emerald-400 text-xl bg-emerald-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-1">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+                <span class="font-semibold text-sm text-gray-300">Balance</span>
+            </button>
+        </div>
+
+        <div class="space-y-3">
+            <button class="w-full bg-card active:scale-98 transition-transform px-4 py-4 rounded-xl flex items-center gap-4 border border-slate-800/30 shadow-md text-left">
+                <i class="fa-solid fa-chart-line text-purple-400 text-lg w-6 text-center"></i>
+                <span class="text-[11px] font-bold tracking-wider uppercase text-gray-300">Rendimiento Vendedores</span>
+            </button>
+
+            <button class="w-full bg-card active:scale-98 transition-transform px-4 py-4 rounded-xl flex items-center gap-4 border border-slate-800/30 shadow-md text-left">
+                <i class="fa-solid fa-users-gear text-slate-400 text-lg w-6 text-center"></i>
+                <span class="text-[11px] font-bold tracking-wider uppercase text-gray-300">Gestión de Personal</span>
+            </button>
+
+            <button class="w-full bg-card active:scale-98 transition-transform px-4 py-4 rounded-xl flex items-center gap-4 border border-slate-800/30 shadow-md text-left">
+                <i class="fa-solid fa-list-ul text-slate-400 text-lg w-6 text-center"></i>
+                <span class="text-[11px] font-bold tracking-wider uppercase text-gray-300">Historial de Actividad</span>
+            </button>
+        </div>
+
+        <div class="bg-card rounded-2xl p-4 border border-slate-800/50 shadow-xl space-y-4">
+            <div class="flex items-center gap-3 text-blue-50
