@@ -1,0 +1,9 @@
+{
+  "name": "MAX Admin Dashboard",
+  "short_name": "MAX",
+  "start_url": "index1.html",
+  "display": "standalone",
+  "background_color": "#0b111e",
+  "theme_color": "#0b111e",
+  "orientation": "portrait"
+}
