@@ -8,13 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background-color: #0b111e; /* Azul oscuro profundo de la captura */
+            background-color: #0b111e;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
         .bg-card {
-            background-color: #172031; /* Color exacto de las tarjetas */
+            background-color: #172031;
         }
-        /* Ocultar barra de scroll en móviles */
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
@@ -28,28 +27,28 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <button onclick="abrirModal()" class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
+            <button onclick="abrirModalVenta()" class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
                 <div class="text-amber-500 text-xl bg-amber-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-1">
                     <i class="fa-solid fa-plus"></i>
                 </div>
                 <span class="font-semibold text-sm text-gray-300">Venta</span>
             </button>
 
-            <button onclick="abrirModal()" class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
+            <button onclick="abrirModalVenta()" class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
                 <div class="text-blue-400 text-xl bg-blue-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-1">
                     <i class="fa-solid fa-user-plus"></i>
                 </div>
                 <span class="font-semibold text-sm text-gray-300">Clientes</span>
             </button>
 
-            <button class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
+            <button onclick="verDeudores()" class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
                 <div class="text-rose-400 text-xl bg-rose-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-1">
                     <i class="fa-solid fa-hand-holding-dollar"></i>
                 </div>
                 <span class="font-semibold text-sm text-gray-300">Deudores</span>
             </button>
 
-            <button class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
+            <button onclick="verBalance()" class="bg-card active:scale-95 transition-transform p-5 rounded-2xl flex flex-col items-center justify-center gap-2 border border-slate-800/40 shadow-lg text-left w-full">
                 <div class="text-emerald-400 text-xl bg-emerald-500/10 w-10 h-10 rounded-full flex items-center justify-center mb-1">
                     <i class="fa-solid fa-wallet"></i>
                 </div>
@@ -58,21 +57,219 @@
         </div>
 
         <div class="space-y-3">
-            <button class="w-full bg-card active:scale-98 transition-transform px-4 py-4 rounded-xl flex items-center gap-4 border border-slate-800/30 shadow-md text-left">
+            <button onclick="verSeccion('Rendimiento Vendedores', 'Gráfica de rendimiento analítico del mes en curso.')" class="w-full bg-card active:scale-98 transition-transform px-4 py-4 rounded-xl flex items-center gap-4 border border-slate-800/30 shadow-md text-left">
                 <i class="fa-solid fa-chart-line text-purple-400 text-lg w-6 text-center"></i>
                 <span class="text-[11px] font-bold tracking-wider uppercase text-gray-300">Rendimiento Vendedores</span>
             </button>
 
-            <button class="w-full bg-card active:scale-98 transition-transform px-4 py-4 rounded-xl flex items-center gap-4 border border-slate-800/30 shadow-md text-left">
+            <button onclick="verSeccion('Gestión de Personal', 'Administración de accesos de revendedores y operarios.')" class="w-full bg-card active:scale-98 transition-transform px-4 py-4 rounded-xl flex items-center gap-4 border border-slate-800/30 shadow-md text-left">
                 <i class="fa-solid fa-users-gear text-slate-400 text-lg w-6 text-center"></i>
                 <span class="text-[11px] font-bold tracking-wider uppercase text-gray-300">Gestión de Personal</span>
             </button>
 
-            <button class="w-full bg-card active:scale-98 transition-transform px-4 py-4 rounded-xl flex items-center gap-4 border border-slate-800/30 shadow-md text-left">
+            <button onclick="verHistorial()" class="w-full bg-card active:scale-98 transition-transform px-4 py-4 rounded-xl flex items-center gap-4 border border-slate-800/30 shadow-md text-left">
                 <i class="fa-solid fa-list-ul text-slate-400 text-lg w-6 text-center"></i>
                 <span class="text-[11px] font-bold tracking-wider uppercase text-gray-300">Historial de Actividad</span>
             </button>
         </div>
 
         <div class="bg-card rounded-2xl p-4 border border-slate-800/50 shadow-xl space-y-4">
-            <div class="flex items-center gap-3 text-blue-50
+            <div class="flex items-center justify-between text-blue-500">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-users text-base"></i>
+                    <h3 id="titulo-tabla" class="text-[12px] font-bold tracking-wider uppercase text-blue-500">Control de Vencimientos</h3>
+                </div>
+                <button onclick="mostrarClientes()" class="text-[10px] bg-slate-800 px-2 py-1 rounded text-gray-400 font-bold uppercase active:scale-95">Ver Todos</button>
+            </div>
+
+            <div class="w-full text-left text-[11px]">
+                <div class="grid grid-cols-3 text-slate-500 font-bold tracking-wider mb-2 px-1">
+                    <div>CLIENTE</div>
+                    <div class="text-center">F. INGRESO</div>
+                    <div class="text-right">F. EXPIRACIÓN</div>
+                </div>
+                <div class="h-px bg-slate-800/60 my-2"></div>
+                
+                <div id="lista-clientes" class="space-y-3 max-h-48 overflow-y-auto pr-1"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-venta" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-card w-full max-w-sm rounded-2xl p-5 border border-slate-700/50 shadow-2xl space-y-4">
+            <h3 class="text-lg font-bold text-gray-200"><i class="fa-solid fa-cart-shopping text-amber-500 mr-2"></i>Nueva Operación</h3>
+            <div class="space-y-3">
+                <div>
+                    <label class="text-xs text-slate-400 block mb-1">Nombre del Cliente</label>
+                    <input type="text" id="input-nombre" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-gray-200 focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="text-xs text-slate-400 block mb-1">Monto ($)</label>
+                        <input type="number" id="input-monto" value="0" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-gray-200 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-400 block mb-1">Fecha</label>
+                        <input type="date" id="input-fecha" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-gray-200 focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 pt-1">
+                    <input type="checkbox" id="input-debe" class="w-4 h-4 accent-rose-500 rounded bg-slate-900 border-slate-700">
+                    <label for="input-debe" class="text-xs font-bold text-rose-400">Marcar como Deuda (No pagó)</label>
+                </div>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button onclick="cerrarModal('modal-venta')" class="w-1/2 bg-slate-800 text-gray-300 text-sm font-semibold py-2 rounded-xl">Cancelar</button>
+                <button onclick="guardarVenta()" class="w-1/2 bg-blue-600 text-white text-sm font-semibold py-2 rounded-xl">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-info" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-card w-full max-w-sm rounded-2xl p-5 border border-slate-700/50 shadow-2xl space-y-4">
+            <h3 id="info-titulo" class="text-md font-bold tracking-wider text-blue-400 uppercase"></h3>
+            <p id="info-texto" class="text-xs text-slate-400 leading-relaxed"></p>
+            <button onclick="cerrarModal('modal-info')" class="w-full bg-slate-800 text-gray-300 text-sm font-semibold py-2 rounded-xl">Entendido</button>
+        </div>
+    </div>
+
+    <audio id="sonido-campana" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav" preload="auto"></audio>
+
+    <script>
+        document.getElementById('input-fecha').valueAsDate = new Date();
+        document.addEventListener('DOMContentLoaded', () => {
+            if(!localStorage.getItem('max_historial')) localStorage.setItem('max_historial', JSON.stringify([]));
+            mostrarClientes();
+        });
+
+        function abrirModalVenta() { document.getElementById('modal-venta').classList.remove('hidden'); }
+        function cerrarModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function registrarHistorial(accion) {
+            let hist = JSON.parse(localStorage.getItem('max_historial')) || [];
+            let ahora = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            hist.unshift({ text: accion, hora: ahora });
+            localStorage.setItem('max_historial', JSON.stringify(hist));
+        }
+
+        function guardarVenta() {
+            const nombre = document.getElementById('input-nombre').value.trim();
+            const monto = parseFloat(document.getElementById('input-monto').value) || 0;
+            const fechaStr = document.getElementById('input-fecha').value;
+            const debe = document.getElementById('input-debe').checked;
+
+            if (!nombre || !fechaStr) return alert('Completá los campos requeridos.');
+
+            const partes = fechaStr.split('-');
+            const fIngreso = `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+            const fechaExp = new Date(fechaStr);
+            fechaExp.setDate(fechaExp.getDate() + 30);
+            const fExpiracion = `${String(fechaExp.getDate()).padStart(2,'0')}/${String(fechaExp.getMonth()+1).padStart(2,'0')}/${fechaExp.getFullYear()}`;
+
+            let clientes = JSON.parse(localStorage.getItem('max_clientes')) || [];
+            clientes.unshift({ nombre, fIngreso, fExpiracion, monto, debe });
+            localStorage.setItem('max_clientes', JSON.stringify(clientes));
+
+            registrarHistorial(`Registrado: ${nombre} ($${monto}) ${debe ? '[DEUDA]' : '[PAGO]'}`);
+
+            document.getElementById('sonido-campana').currentTime = 0;
+            document.getElementById('sonido-campana').play().catch(()=>{});
+
+            document.getElementById('input-nombre').value = '';
+            document.getElementById('input-monto').value = '0';
+            document.getElementById('input-debe').checked = false;
+            
+            cerrarModal('modal-venta');
+            mostrarClientes();
+        }
+
+        function mostrarClientes() {
+            document.getElementById('titulo-tabla').innerText = "Control de Vencimientos";
+            const lista = document.getElementById('lista-clientes');
+            let clientes = JSON.parse(localStorage.getItem('max_clientes')) || [];
+
+            if(clientes.length === 0) {
+                lista.innerHTML = `<div class="text-center text-slate-600 py-4">No hay registros activos.</div>`;
+                return;
+            }
+
+            lista.innerHTML = clientes.map((c, index) => `
+                <div onclick="eliminarCliente(${index})" class="grid grid-cols-3 items-center font-medium py-1 text-gray-300 border-b border-slate-800/20 active:bg-slate-900/40 p-1 rounded transition-colors">
+                    <div class="truncate font-semibold text-sm ${c.debe ? 'text-rose-400' : 'text-gray-300'}">${c.nombre}</div>
+                    <div class="text-center text-slate-400">${c.fIngreso}</div>
+                    <div class="text-right text-emerald-400 font-semibold">${c.fExpiracion}</div>
+                </div>
+            `).join('');
+        }
+
+        function eliminarCliente(index) {
+            if(confirm("¿Deseas dar de baja este registro?")) {
+                let clientes = JSON.parse(localStorage.getItem('max_clientes')) || [];
+                registrarHistorial(`Eliminado de lista: ${clientes[index].nombre}`);
+                clientes.splice(index, 1);
+                localStorage.setItem('max_clientes', JSON.stringify(clientes));
+                mostrarClientes();
+            }
+        }
+
+        function verDeudores() {
+            document.getElementById('titulo-tabla').innerText = "Filtro: Deudores";
+            const lista = document.getElementById('lista-clientes');
+            let clientes = JSON.parse(localStorage.getItem('max_clientes')) || [];
+            let deudores = clientes.filter(c => c.debe);
+
+            if(deudores.length === 0) {
+                lista.innerHTML = `<div class="text-center text-emerald-400 py-4 font-semibold">¡Al día! No hay deudores.</div>`;
+                return;
+            }
+
+            lista.innerHTML = deudores.map(c => `
+                <div class="grid grid-cols-3 items-center font-medium py-1 text-gray-300 border-b border-slate-800/20">
+                    <div class="truncate font-semibold text-sm text-rose-400">${c.nombre}</div>
+                    <div class="text-center text-slate-500">Debe monto:</div>
+                    <div class="text-right text-rose-500 font-bold text-sm">$${c.monto}</div>
+                </div>
+            `).join('');
+        }
+
+        function verBalance() {
+            let clientes = JSON.parse(localStorage.getItem('max_clientes')) || [];
+            let totalPagado = clientes.filter(c => !c.debe).reduce((sum, c) => sum + c.monto, 0);
+            let totalDeuda = clientes.filter(c => c.debe).reduce((sum, c) => sum + c.monto, 0);
+
+            document.getElementById('info-titulo').innerText = "Balance General";
+            document.getElementById('info-texto').innerHTML = `
+                <span class="text-emerald-400 font-bold text-sm">Caja Recaudada: $${totalPagado}</span><br>
+                <span class="text-rose-400 font-bold text-sm">Cuentas por Cobrar: $${totalDeuda}</span><br><br>
+                <span class="text-slate-400 text-[11px]">Cálculo en base a los registros activos en la memoria local del dispositivo.</span>
+            `;
+            document.getElementById('modal-info').classList.remove('hidden');
+        }
+
+        function verHistorial() {
+            let hist = JSON.parse(localStorage.getItem('max_historial')) || [];
+            document.getElementById('titulo-tabla').innerText = "Historial de Actividad";
+            const lista = document.getElementById('lista-clientes');
+
+            if(hist.length === 0) {
+                lista.innerHTML = `<div class="text-center text-slate-600 py-4">Historial limpio.</div>`;
+                return;
+            }
+
+            lista.innerHTML = hist.slice(0,15).map(h => `
+                <div class="grid grid-cols-3 items-center py-1 text-slate-400 border-b border-slate-800/10">
+                    <div class="col-span-2 text-xs truncate font-medium">${h.text}</div>
+                    <div class="text-right text-[10px] text-blue-500 font-semibold">${h.hora} hs</div>
+                </div>
+            `).join('');
+        }
+
+        function verSeccion(titulo, desc) {
+            document.getElementById('info-titulo').innerText = titulo;
+            document.getElementById('info-texto').innerText = desc;
+            document.getElementById('modal-info').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
